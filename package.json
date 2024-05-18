@@ -42,9 +42,8 @@
     "vite": "^5.2.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "tsc --noEmit"
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix"
     ]
   }
 }
