@@ -1,7 +1,12 @@
-import AppRouter from '@/routing/AppRouter';
+import Providers from "@/context/Providers";
+import AppRouter from "@/routing/AppRouter";
 
 const App: React.FC = () => {
-  return <AppRouter />;
+  return (
+    <Providers>
+      <AppRouter />
+    </Providers>
+  );
 };
 
 export default App;

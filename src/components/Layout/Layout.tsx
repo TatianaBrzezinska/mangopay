@@ -1,6 +1,6 @@
-import { Box, Container, CssBaseline } from '@mui/material';
+import { Box, Container, CssBaseline } from "@mui/material";
 
-import Header from './Header';
+import Header from "./Header";
 
 interface LayoutProps {
   children: React.ReactNode;
