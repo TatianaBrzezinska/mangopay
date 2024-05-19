@@ -1,11 +1,4 @@
-import { Box, Button, styled, Typography } from "@mui/material";
-
-export const Wrapper = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  backgroundColor: theme.palette.common.white,
-  borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(4, 6),
-}));
+import { Button, styled, Typography } from "@mui/material";
 
 export const AddContactBtn = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1.5, 3),

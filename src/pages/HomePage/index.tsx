@@ -3,6 +3,7 @@ import { Box, InputAdornment, TextField } from "@mui/material";
 import { useContext, useState } from "react";
 
 import ContactDataGrid from "@/components/ContactDataGrid";
+import Wrapper from "@/components/Layout/Wrapper";
 import {
   AddContactModal,
   DeleteContactModal,
@@ -11,7 +12,7 @@ import {
 import { ContactContext } from "@/context/ContactContext";
 import { Contact } from "@/types";
 
-import { AddContactBtn, Title, Wrapper } from "./styles";
+import { AddContactBtn, Title } from "./styles";
 
 const HomePage: React.FC = () => {
   const { contacts, addContact, updateContact, deleteContact } =

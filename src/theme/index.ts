@@ -2,24 +2,6 @@ import "@mui/x-data-grid/themeAugmentation";
 
 import { createTheme } from "@mui/material/styles";
 
-declare module "@mui/material/styles" {
-  interface CommonColors {
-    light: string;
-    lightGrey: string;
-    grey: string;
-    darkGrey: string;
-    dark: string;
-  }
-
-  interface Palette {
-    common: CommonColors;
-  }
-
-  interface PaletteOptions {
-    common?: Partial<CommonColors>;
-  }
-}
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -33,11 +15,6 @@ const theme = createTheme({
     },
     common: {
       white: "#ffffff",
-      light: "#eaebec",
-      lightGrey: "#f7f8fa",
-      darkGrey: "#8A98B2",
-      grey: "#758197",
-      dark: "#2e333d",
     },
   },
   shape: {
@@ -45,9 +22,6 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "Montserrat, Arial, sans-serif",
-    allVariants: {
-      color: "#545860",
-    },
   },
   components: {
     MuiCssBaseline: {

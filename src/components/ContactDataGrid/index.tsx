@@ -62,7 +62,7 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-cell": {
     border: "none",
     cursor: "pointer",
-    borderTop: `1px solid ${theme.palette.common.light}`,
+    borderTop: `1px solid ${theme.palette.grey[200]}`,
     "&:focus-within, &:focus": {
       outline: "none",
     },
@@ -75,7 +75,7 @@ const CustomDataGrid = styled(DataGrid)({
   },
   "& .MuiDataGrid-columnHeaderTitle": {
     border: "none",
-    color: theme.palette.common.grey,
+    color: theme.palette.grey[700],
     fontWeight: 600,
   },
   "& .MuiDataGrid-iconButtonContainer": {
