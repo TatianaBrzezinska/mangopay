@@ -1,47 +1,46 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import { createContext, ReactNode, useReducer } from "react";
 
+import { Contact } from "@/types";
 import { generateFakeContacts } from "@/utils/fakerData";
-import { Contact, getContacts, saveContacts } from "@/utils/localStorage";
-
-interface State {
-  contacts: Contact[];
-}
+import { getContacts, saveContacts } from "@/utils/localStorage";
 
 type Action =
   | { type: "ADD_CONTACT"; payload: Contact }
   | { type: "UPDATE_CONTACT"; payload: Contact }
   | { type: "DELETE_CONTACT"; payload: string };
 
-const initialState: State = {
-  contacts: getContacts(),
+const initializeState = (): Contact[] => {
+  const contacts = getContacts();
+  if (contacts.length === 0) {
+    const fakeContacts = generateFakeContacts(10);
+    saveContacts(fakeContacts);
+    return fakeContacts;
+  }
+  return contacts;
 };
 
-const contactReducer = (state: State, action: Action): State => {
+const initialState: Contact[] = initializeState();
+
+const contactReducer = (state: Contact[], action: Action): Contact[] => {
   switch (action.type) {
     case "ADD_CONTACT": {
-      const newContacts = [...state.contacts, action.payload];
+      const newContacts = [...state, action.payload];
       saveContacts(newContacts);
-      return { contacts: newContacts };
+      return newContacts;
     }
     case "UPDATE_CONTACT": {
-      const updatedContacts = state.contacts.map((contact) =>
+      const updatedContacts = state.map((contact) =>
         contact.id === action.payload.id ? action.payload : contact,
       );
       saveContacts(updatedContacts);
-      return { contacts: updatedContacts };
+      return updatedContacts;
     }
     case "DELETE_CONTACT": {
-      const filteredContacts = state.contacts.filter(
+      const filteredContacts = state.filter(
         (contact) => contact.id !== action.payload,
       );
       saveContacts(filteredContacts);
-      return { contacts: filteredContacts };
+      return filteredContacts;
     }
     default:
       return state;
@@ -49,28 +48,19 @@ const contactReducer = (state: State, action: Action): State => {
 };
 
 const ContactContext = createContext<{
-  state: State;
+  contacts: Contact[];
   addContact: (contact: Contact) => void;
   updateContact: (contact: Contact) => void;
   deleteContact: (id: string) => void;
 }>({
-  state: initialState,
+  contacts: initialState,
   addContact: () => {},
   updateContact: () => {},
   deleteContact: () => {},
 });
 
 const ContactProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(contactReducer, initialState);
-
-  useEffect(() => {
-    if (state.contacts.length === 0) {
-      const fakeContacts = generateFakeContacts(10);
-      fakeContacts.forEach((contact) => {
-        dispatch({ type: "ADD_CONTACT", payload: contact });
-      });
-    }
-  }, [state.contacts]);
+  const [contacts, dispatch] = useReducer(contactReducer, initialState);
 
   const addContact = (contact: Contact) => {
     dispatch({ type: "ADD_CONTACT", payload: contact });
@@ -86,19 +76,11 @@ const ContactProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <ContactContext.Provider
-      value={{ state, addContact, updateContact, deleteContact }}
+      value={{ contacts, addContact, updateContact, deleteContact }}
     >
       {children}
     </ContactContext.Provider>
   );
 };
 
-const useContactContext = () => {
-  const context = useContext(ContactContext);
-  if (!context) {
-    throw new Error("useContactContext must be used within a ContactProvider");
-  }
-  return context;
-};
-
-export { ContactProvider, useContactContext };
+export { ContactContext, ContactProvider };

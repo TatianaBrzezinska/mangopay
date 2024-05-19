@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
-import { Contact } from './localStorage';
+import { Contact } from "@/types";
 
 export const generateFakeContacts = (count: number): Contact[] => {
   const contacts: Contact[] = [];

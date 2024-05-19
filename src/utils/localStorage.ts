@@ -1,9 +1,4 @@
-export interface Contact {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+import { Contact } from "@/types";
 
 export const getContacts = (): Contact[] => {
   const contacts = localStorage.getItem("contacts");

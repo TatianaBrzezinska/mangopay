@@ -3,7 +3,7 @@ import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 
 import theme from "@/theme";
-import { Contact } from "@/utils/localStorage";
+import { Contact } from "@/types";
 
 import { getColumns } from "./columns";
 
@@ -61,6 +61,7 @@ const CustomDataGrid = styled(DataGrid)({
   },
   "& .MuiDataGrid-cell": {
     border: "none",
+    cursor: "pointer",
     borderTop: `1px solid ${theme.palette.common.light}`,
     "&:focus-within, &:focus": {
       outline: "none",

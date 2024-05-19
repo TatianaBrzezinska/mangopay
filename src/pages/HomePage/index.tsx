@@ -1,18 +1,41 @@
 import { Search } from "@mui/icons-material";
 import { Box, InputAdornment, TextField } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import ContactDataGrid from "@/components/ContactDataGrid";
-import { generateFakeContacts } from "@/utils/fakerData";
+import {
+  AddContactModal,
+  DeleteContactModal,
+  EditContactModal,
+} from "@/components/Modals";
+import { ContactContext } from "@/context/ContactContext";
+import { Contact } from "@/types";
 
 import { AddContactBtn, Title, Wrapper } from "./styles";
 
 const HomePage: React.FC = () => {
-  const contacts = generateFakeContacts(10);
+  const { contacts, addContact, updateContact, deleteContact } =
+    useContext(ContactContext);
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [editingContact, setEditingContact] = useState<null | Contact>(null);
+  const [deletingContact, setDeletingContact] = useState<null | Contact>(null);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleEdit = (contact: Contact) => {
+    setEditingContact(contact);
+    setEditModalOpen(true);
+  };
+
+  const handleDelete = (contact: Contact) => {
+    setDeletingContact(contact);
+    setDeleteModalOpen(true);
   };
 
   const filteredContacts = contacts.filter(
@@ -46,16 +69,43 @@ const HomePage: React.FC = () => {
             ),
           }}
         />
-        <AddContactBtn variant="outlined">+ Add Contact</AddContactBtn>
+        <AddContactBtn
+          variant="outlined"
+          onClick={() => setAddModalOpen(true)}
+          size="large"
+        >
+          + Add Contact
+        </AddContactBtn>
       </Box>
 
       <Wrapper>
         <ContactDataGrid
           contacts={filteredContacts}
-          onEdit={() => {}}
-          onDelete={() => {}}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </Wrapper>
+      <AddContactModal
+        open={isAddModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onSave={addContact}
+      />
+      {editingContact && (
+        <EditContactModal
+          open={isEditModalOpen}
+          onClose={() => setEditModalOpen(false)}
+          contact={editingContact}
+          onSave={updateContact}
+        />
+      )}
+      {deletingContact && (
+        <DeleteContactModal
+          open={isDeleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          contact={deletingContact}
+          onDelete={deleteContact}
+        />
+      )}
     </Box>
   );
 };

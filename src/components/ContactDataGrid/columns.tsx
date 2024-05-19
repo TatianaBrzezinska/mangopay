@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 
 import theme from "@/theme";
-import { Contact } from "@/utils/localStorage";
+import { Contact } from "@/types";
 
 import { CustomHeader, CustomIconButton } from "./styles";
 
@@ -31,12 +31,20 @@ export const getColumns = (
         height="100%"
         gap={1}
       >
-        <CustomIconButton onClick={() => handleEditClick(params.row)}>
+        <CustomIconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEditClick(params.row);
+          }}
+        >
           <Edit />
         </CustomIconButton>
         <CustomIconButton
           sx={{ color: theme.palette.error.main }}
-          onClick={() => handleDeleteClick(params.row)}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteClick(params.row);
+          }}
         >
           <Delete />
         </CustomIconButton>

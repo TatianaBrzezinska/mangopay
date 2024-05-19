@@ -4,11 +4,11 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
   backgroundColor: theme.palette.common.white,
   borderRadius: theme.shape.borderRadius,
-  padding: `${theme.spacing(4)} ${theme.spacing(6)}`,
+  padding: theme.spacing(4, 6),
 }));
 
 export const AddContactBtn = styled(Button)(({ theme }) => ({
-  padding: `${theme.spacing(1.8)} ${theme.spacing(3)}`,
+  padding: theme.spacing(1.5, 3),
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
