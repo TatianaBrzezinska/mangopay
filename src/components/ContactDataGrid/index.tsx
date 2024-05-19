@@ -75,7 +75,7 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-columnHeaderTitle": {
     border: "none",
     color: theme.palette.common.grey,
-    fontWeight: 400,
+    fontWeight: 600,
   },
   "& .MuiDataGrid-iconButtonContainer": {
     border: "none",

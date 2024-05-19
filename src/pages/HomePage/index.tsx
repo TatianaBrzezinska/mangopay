@@ -1,16 +1,11 @@
 import { Search } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  styled,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
 
 import ContactDataGrid from "@/components/ContactDataGrid";
 import { generateFakeContacts } from "@/utils/fakerData";
+
+import { AddContactBtn, Title, Wrapper } from "./styles";
 
 const HomePage: React.FC = () => {
   const contacts = generateFakeContacts(10);
@@ -29,9 +24,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Box padding={2}>
-      <Typography variant="h4" gutterBottom>
-        Welcome to Contactz!
-      </Typography>
+      <Title variant="h4">Welcome to Contactz!</Title>
       <Box
         display="flex"
         flexDirection="row"
@@ -44,6 +37,7 @@ const HomePage: React.FC = () => {
           placeholder="Search..."
           value={searchQuery}
           onChange={handleSearchChange}
+          sx={{ width: "25%" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -52,7 +46,7 @@ const HomePage: React.FC = () => {
             ),
           }}
         />
-        <AddContactBtn color="primary">+ Add Contact</AddContactBtn>
+        <AddContactBtn variant="outlined">+ Add Contact</AddContactBtn>
       </Box>
 
       <Wrapper>
@@ -67,14 +61,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-
-const Wrapper = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  backgroundColor: theme.palette.common.white,
-  borderRadius: theme.shape.borderRadius,
-  padding: `${theme.spacing(4)} ${theme.spacing(6)}`,
-}));
-
-const AddContactBtn = styled(Button)(({ theme }) => ({
-  padding: `${theme.spacing(1.8)} ${theme.spacing(3)}`,
-}));

@@ -20,4 +20,5 @@ export const CustomIconButton = styled(IconButton)(({ theme }) => ({
 export const CustomHeader = styled(Typography)(({ theme }) => ({
   pr: 2,
   color: theme.palette.common.grey,
+  fontWeight: 600,
 }));
